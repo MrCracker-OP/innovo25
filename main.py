@@ -1,4 +1,5 @@
 # app.py
+from flask import Flask, request, jsonify
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
@@ -285,14 +286,31 @@ def clean_emissions_data(df):
 
 @app.route('/api/dashboard/summary', methods=['GET'])
 def get_dashboard_summary():
-    emissions = load_emissions_data()
+    # Get query parameters
+    scope_filter = request.args.get('scope')
+    business_unit_filter = request.args.get('business_unit')
 
+    emissions = load_emissions_data()
     if not emissions:
         return jsonify({
             'total_emissions': 0,
             'emissions_by_scope': {'Scope 1': 0, 'Scope 2': 0, 'Scope 3': 0},
-            'emissions_by_month': {}
+            'emissions_by_business_unit': {},
+            'emissions_trend': [],
+            'business_unit_trend': {}
         })
+
+    # Filter emissions by scope
+    if scope_filter:
+        scope_filter = scope_filter.replace(' ', '')
+        scope_filter = f"{scope_filter[:5]} {scope_filter[5:]}"
+        emissions = [e for e in emissions if e.get('scope') == scope_filter]
+
+    # Filter emissions by business unit
+    if business_unit_filter:
+        business_unit_filter = business_unit_filter.replace('+', ' ')
+        emissions = [e for e in emissions if e.get(
+            'business_unit') == business_unit_filter]
 
     # Calculate total emissions
     total_emissions = sum(e.get('co2e', 0) for e in emissions)
@@ -304,28 +322,56 @@ def get_dashboard_summary():
         emissions_by_scope[scope] = emissions_by_scope.get(
             scope, 0) + e.get('co2e', 0)
 
+    # Group by business unit
+    emissions_by_business_unit = {}
+    for e in emissions:
+        business_unit = e.get('business_unit', 'Unknown')
+        emissions_by_business_unit[business_unit] = emissions_by_business_unit.get(
+            business_unit, 0) + e.get('co2e', 0)
+
     # Group by month for trend analysis
     emissions_by_month = {}
+    business_unit_emissions_by_month = {}
     for e in emissions:
         if 'date' in e:
             try:
                 date = datetime.fromisoformat(e['date'].replace('Z', '+00:00'))
                 month_key = date.strftime('%Y-%m')
+                business_unit = e.get('business_unit', 'Unknown')
+
+                # Overall trend
                 emissions_by_month[month_key] = emissions_by_month.get(
+                    month_key, 0) + e.get('co2e', 0)
+
+                # Business Unit-specific trend
+                if business_unit not in business_unit_emissions_by_month:
+                    business_unit_emissions_by_month[business_unit] = {}
+                business_unit_emissions_by_month[business_unit][month_key] = business_unit_emissions_by_month[business_unit].get(
                     month_key, 0) + e.get('co2e', 0)
             except (ValueError, AttributeError):
                 continue
 
-    # Convert to sorted list for easier frontend rendering
+    # Convert to sorted lists for frontend
     emissions_trend = [
         {'month': k, 'emissions': v}
         for k, v in sorted(emissions_by_month.items())
     ]
 
+    # Format business unit trends
+    business_unit_trend = {
+        business_unit: [
+            {'month': k, 'emissions': v}
+            for k, v in sorted(months.items())
+        ]
+        for business_unit, months in business_unit_emissions_by_month.items()
+    }
+
     return jsonify({
         'total_emissions': round(total_emissions, 2),
         'emissions_by_scope': emissions_by_scope,
-        'emissions_trend': emissions_trend
+        'emissions_by_business_unit': emissions_by_business_unit,
+        'emissions_trend': emissions_trend,
+        'business_unit_trend': business_unit_trend
     })
 
 
