@@ -1,33 +1,26 @@
 # app.py
 from flask import Flask, request, jsonify
-from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import pandas as pd
-import numpy as np
+# import numpy as np
 from datetime import datetime
 import uuid
 import json
 from werkzeug.utils import secure_filename
 
-# Configure Flask app
 app = Flask(__name__, static_folder='static')
-CORS(app)  # Enable Cross-Origin Resource Sharing
+CORS(app)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['DATA_FOLDER'] = 'data'
 app.config['ALLOWED_EXTENSIONS'] = {'csv', 'xlsx', 'xls'}
 
-# Create necessary directories if they don't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['DATA_FOLDER'], exist_ok=True)
-
-# Helper function to check allowed file extensions
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
-# Helper function to load existing data
 
 
 def load_emissions_data():
@@ -37,29 +30,22 @@ def load_emissions_data():
             return json.load(f)
     return []
 
-# Helper function to save emissions data
-
 
 def save_emissions_data(data):
     data_file = os.path.join(app.config['DATA_FOLDER'], 'emissions.json')
     with open(data_file, 'w') as f:
         json.dump(data, f, indent=2)
 
-# Route for serving the frontend
-
 
 @app.route('/')
 def index():
     return "HELLO WORLD"
-
-# API Routes
 
 
 @app.route('/api/emissions', methods=['GET'])
 def get_emissions():
     emissions = load_emissions_data()
 
-    # Handle filtering
     scope = request.args.get('scope')
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
@@ -93,17 +79,12 @@ def add_emission():
     data = request.json
     emissions = load_emissions_data()
 
-    # Generate unique ID
     data['id'] = str(uuid.uuid4())
     data['created_at'] = datetime.now().isoformat()
 
-    # Calculate CO2e based on activity type and quantity
-    # This is a simplified calculation - in a real app, you'd use more precise emission factors
     activity_type = data.get('activity_type')
     quantity = float(data.get('quantity', 0))
-    unit = data.get('unit', '')
 
-    # Sample emission factors (kg CO2e per unit)
     emission_factors = {
         'electricity': 0.5,  # kg CO2e per kWh
         'natural_gas': 2.1,  # kg CO2e per m3
@@ -111,7 +92,6 @@ def add_emission():
         'purchased_goods': 1.0,  # generic factor per kg
     }
 
-    # Calculate emissions
     factor = emission_factors.get(activity_type, 1.0)
     data['co2e'] = round(quantity * factor, 2)
     data['co2e_unit'] = 'kgCO₂e'
@@ -135,7 +115,6 @@ def update_emission(emission_id):
     data = request.json
     emissions = load_emissions_data()
 
-    # Find and update the emission entry
     for i, emission in enumerate(emissions):
         if emission['id'] == emission_id:
             # Recalculate CO2e if quantity or activity type changed
