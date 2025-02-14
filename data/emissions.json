@@ -2,7 +2,6 @@
   {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "date": "2024-02-14",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1500,
@@ -10,12 +9,13 @@
     "source": "Fleet Management System",
     "co2e": 3450,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-14T10:00:00.000Z"
+    "created_at": "2024-02-14T10:00:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440001",
     "date": "2024-02-14",
-    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 10000,
@@ -23,12 +23,13 @@
     "source": "Utility Bills",
     "co2e": 5000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-14T10:30:00.000Z"
+    "created_at": "2024-02-14T10:30:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440002",
     "date": "2024-02-13",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2000,
@@ -36,12 +37,13 @@
     "source": "Gas Bills",
     "co2e": 4200,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-13T15:00:00.000Z"
+    "created_at": "2024-02-13T15:00:00.000Z",
+    "fuel_type": "Natural Gas",
+    "emission_factor": "2.2 kg CO₂/m³"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440003",
     "date": "2024-02-13",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "purchased_goods",
     "quantity": 5000,
@@ -49,12 +51,13 @@
     "source": "Procurement Data",
     "co2e": 5000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-13T16:00:00.000Z"
+    "created_at": "2024-02-13T16:00:00.000Z",
+    "material_type": "Steel",
+    "emission_factor": "2.0 kg CO₂/kg"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440004",
     "date": "2024-01-15",
-    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 15000,
@@ -62,12 +65,13 @@
     "source": "Data Center Monitoring",
     "co2e": 7500,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-01-15T09:00:00.000Z"
+    "created_at": "2024-01-15T09:00:00.000Z",
+    "electricity_source": "Coal-based Electricity",
+    "emission_factor": "1.0 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440005",
     "date": "2024-02-15",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1800,
@@ -75,12 +79,13 @@
     "source": "Fleet Management System",
     "co2e": 4140,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-15T11:00:00.000Z"
+    "created_at": "2024-02-15T11:00:00.000Z",
+    "fuel_type": "Petrol",
+    "emission_factor": "2.6 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440006",
     "date": "2024-02-15",
-    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 12000,
@@ -88,12 +93,13 @@
     "source": "Utility Bills",
     "co2e": 6000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-15T12:00:00.000Z"
+    "created_at": "2024-02-15T12:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440007",
     "date": "2024-02-16",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "business_travel",
     "quantity": 3000,
@@ -101,12 +107,13 @@
     "source": "Travel Logs",
     "co2e": 750,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-16T14:00:00.000Z"
+    "created_at": "2024-02-16T14:00:00.000Z",
+    "mode_of_travel": "Heavy Goods Vehicle",
+    "emission_factor": "0.15 kg CO₂/ton-km"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440008",
     "date": "2024-02-16",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "stationary_combustion",
     "quantity": 2500,
@@ -114,12 +121,13 @@
     "source": "Fuel Records",
     "co2e": 5750,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-16T15:30:00.000Z"
+    "created_at": "2024-02-16T15:30:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440009",
     "date": "2024-02-17",
-    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 18000,
@@ -127,12 +135,13 @@
     "source": "Data Center Monitoring",
     "co2e": 9000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-17T10:00:00.000Z"
+    "created_at": "2024-02-17T10:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440010",
     "date": "2024-02-17",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "waste_generated",
     "quantity": 2000,
@@ -140,12 +149,13 @@
     "source": "Waste Management Reports",
     "co2e": 1000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-17T11:00:00.000Z"
+    "created_at": "2024-02-17T11:00:00.000Z",
+    "waste_type": "Landfill Waste",
+    "emission_factor": "1.0 kg CO₂/kg waste"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440011",
     "date": "2024-02-18",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2200,
@@ -153,12 +163,13 @@
     "source": "Gas Bills",
     "co2e": 4620,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-18T13:00:00.000Z"
+    "created_at": "2024-02-18T13:00:00.000Z",
+    "fuel_type": "Natural Gas",
+    "emission_factor": "2.2 kg CO₂/m³"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440012",
     "date": "2024-02-18",
-    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 11000,
@@ -166,12 +177,13 @@
     "source": "Utility Bills",
     "co2e": 5500,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-18T14:00:00.000Z"
+    "created_at": "2024-02-18T14:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440013",
     "date": "2024-02-19",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "purchased_goods",
     "quantity": 7000,
@@ -179,12 +191,13 @@
     "source": "Procurement Data",
     "co2e": 7000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-19T09:00:00.000Z"
+    "created_at": "2024-02-19T09:00:00.000Z",
+    "material_type": "Steel",
+    "emission_factor": "2.0 kg CO₂/kg"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440014",
     "date": "2024-02-19",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1700,
@@ -192,12 +205,13 @@
     "source": "Fleet Management System",
     "co2e": 3910,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-19T10:30:00.000Z"
+    "created_at": "2024-02-19T10:30:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440015",
     "date": "2024-02-20",
-    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 16000,
@@ -205,12 +219,13 @@
     "source": "Data Center Monitoring",
     "co2e": 8000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-20T08:00:00.000Z"
+    "created_at": "2024-02-20T08:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440016",
     "date": "2024-02-20",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "business_travel",
     "quantity": 2500,
@@ -218,12 +233,13 @@
     "source": "Travel Logs",
     "co2e": 625,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-20T12:30:00.000Z"
+    "created_at": "2024-02-20T12:30:00.000Z",
+    "mode_of_travel": "Heavy Goods Vehicle",
+    "emission_factor": "0.15 kg CO₂/ton-km"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440017",
     "date": "2024-02-21",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "stationary_combustion",
     "quantity": 2300,
@@ -231,12 +247,13 @@
     "source": "Fuel Records",
     "co2e": 5290,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-21T11:45:00.000Z"
+    "created_at": "2024-02-21T11:45:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440018",
     "date": "2024-02-22",
-    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 12500,
@@ -244,12 +261,13 @@
     "source": "Utility Bills",
     "co2e": 6250,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-22T14:00:00.000Z"
+    "created_at": "2024-02-22T14:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440019",
     "date": "2024-02-22",
-    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "waste_generated",
     "quantity": 2200,
@@ -257,12 +275,13 @@
     "source": "Waste Management Reports",
     "co2e": 1100,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-22T15:30:00.000Z"
+    "created_at": "2024-02-22T15:30:00.000Z",
+    "waste_type": "Landfill Waste",
+    "emission_factor": "1.0 kg CO₂/kg waste"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440020",
     "date": "2024-02-23",
-    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2100,
@@ -270,12 +289,13 @@
     "source": "Gas Bills",
     "co2e": 4410,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-23T13:15:00.000Z"
+    "created_at": "2024-02-23T13:15:00.000Z",
+    "fuel_type": "Natural Gas",
+    "emission_factor": "2.2 kg CO₂/m³"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440021",
     "date": "2024-02-23",
-    "scope": "Scope 1",
     "business_unit": "Office Operations",
     "activity_type": "heating",
     "quantity": 500,
@@ -283,12 +303,13 @@
     "source": "Building Management",
     "co2e": 1150,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-23T14:00:00.000Z"
+    "created_at": "2024-02-23T14:00:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440022",
     "date": "2024-02-24",
-    "scope": "Scope 2",
     "business_unit": "Manufacturing",
     "activity_type": "electricity",
     "quantity": 18000,
@@ -296,12 +317,13 @@
     "source": "Utility Bills",
     "co2e": 9000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-24T09:30:00.000Z"
+    "created_at": "2024-02-24T09:30:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440023",
     "date": "2024-02-24",
-    "scope": "Scope 3",
     "business_unit": "Office Operations",
     "activity_type": "business_travel",
     "quantity": 4000,
@@ -309,12 +331,13 @@
     "source": "Travel Logs",
     "co2e": 1000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-24T10:30:00.000Z"
+    "created_at": "2024-02-24T10:30:00.000Z",
+    "mode_of_travel": "Heavy Goods Vehicle",
+    "emission_factor": "0.15 kg CO₂/ton-km"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440024",
     "date": "2024-02-25",
-    "scope": "Scope 1",
     "business_unit": "Supply Chain",
     "activity_type": "company_owned_trucks",
     "quantity": 2200,
@@ -322,12 +345,13 @@
     "source": "Logistics Reports",
     "co2e": 5060,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-25T08:45:00.000Z"
+    "created_at": "2024-02-25T08:45:00.000Z",
+    "fuel_type": "Diesel",
+    "emission_factor": "2.9 kg CO₂/L"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440025",
     "date": "2024-02-25",
-    "scope": "Scope 2",
     "business_unit": "Supply Chain",
     "activity_type": "electricity",
     "quantity": 14000,
@@ -335,12 +359,13 @@
     "source": "Warehouse Utility Bills",
     "co2e": 7000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-25T12:00:00.000Z"
+    "created_at": "2024-02-25T12:00:00.000Z",
+    "electricity_source": "Grid Electricity (Average)",
+    "emission_factor": "0.5 kg CO₂/kWh"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440026",
     "date": "2024-02-26",
-    "scope": "Scope 3",
     "business_unit": "Manufacturing",
     "activity_type": "purchased_goods",
     "quantity": 9000,
@@ -348,12 +373,13 @@
     "source": "Procurement Data",
     "co2e": 9000,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-26T11:00:00.000Z"
+    "created_at": "2024-02-26T11:00:00.000Z",
+    "material_type": "Steel",
+    "emission_factor": "2.0 kg CO₂/kg"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440027",
     "date": "2024-02-27",
-    "scope": "Scope 3",
     "business_unit": "Office Operations",
     "activity_type": "waste_generated",
     "quantity": 1800,
@@ -361,7 +387,8 @@
     "source": "Waste Reports",
     "co2e": 900,
     "co2e_unit": "kgCO₂e",
-    "created_at": "2024-02-27T15:45:00.000Z"
+    "created_at": "2024-02-27T15:45:00.000Z",
+    "waste_type": "Landfill Waste",
+    "emission_factor": "1.0 kg CO₂/kg waste"
   }
 ]
-
