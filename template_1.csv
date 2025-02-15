@@ -1,0 +1,22 @@
+Date,Activity Type,Business Unit,Quantity,Units,Source
+2024-01-15,Natural Gas,Manufacturing,28316.8,scm,Utility Bills
+2024-02-15,Electricity,Office Campus,50000.0,kwh,Energy Meter
+2024-03-16,Vehicle Fleet,Distribution,1892.7,liters,Fleet Management
+2024-04-17,Purchased Goods,Procurement,2500.0,kg,Purchase Orders
+2024-05-18,Refrigerants,Manufacturing,50.0,kg,Maintenance Logs
+2024-05-19,Steam,Office Campus,1200.0,mmbtu,Utility Bills
+2024-04-20,Business Travel,Sales,8046.72,km,Travel System
+2023-06-15,Natural Gas,Manufacturing,25890.2,scm,Utility Bills
+2023-07-22,Electricity,Office Campus,48500.0,kwh,Energy Meter
+2023-08-30,Vehicle Fleet,Distribution,2150.5,liters,Fleet Management
+2023-09-12,Purchased Goods,Procurement,3200.0,kg,Purchase Orders
+2023-10-05,Refrigerants,Manufacturing,35.5,kg,Maintenance Logs
+2023-11-18,Steam,Office Campus,980.0,mmbtu,Utility Bills
+2023-12-01,Business Travel,Sales,12567.3,km,Travel System
+2024-01-30,Electricity,Manufacturing,75000.0,kwh,Energy Meter
+2023-07-15,Natural Gas,Office Campus,15678.9,scm,Utility Bills
+2024-02-28,Vehicle Fleet,Sales,2456.8,liters,Fleet Management
+2023-09-25,Steam,Manufacturing,1650.0,mmbtu,Utility Bills
+2024-03-10,Purchased Goods,Procurement,1800.0,kg,Purchase Orders
+2023-08-15,Business Travel,Sales,9876.5,km,Travel System
+2024-04-05,Refrigerants,Manufacturing,42.5,kg,Maintenance Logs
