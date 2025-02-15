@@ -1,8 +1,9 @@
-# main.py
+# app.py
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import pandas as pd
+# import numpy as np
 from datetime import datetime
 import uuid
 import json
@@ -36,19 +37,6 @@ def save_emissions_data(data):
         json.dump(data, f, indent=2)
 
 
-def load_emission_factors():
-    return {
-        'Diesel': 2.9,  # kg CO₂/L
-        'Petrol': 2.6,  # kg CO₂/L
-        'Natural Gas': 2.2,  # kg CO₂/m³
-        'Coal': 2.7,  # kg CO₂/kg
-        'LPG': 1.8,  # kg CO₂/L
-        'Grid Electricity': 0.5,  # kg CO₂/kWh
-        'Heavy Goods Vehicle': 0.15,  # kg CO₂/ton-km
-        'Rail Transport': 0.045  # kg CO₂/ton-km
-    }
-
-
 @app.route('/')
 def index():
     return "HELLO WORLD"
@@ -58,20 +46,30 @@ def index():
 def get_emissions():
     emissions = load_emissions_data()
 
+    scope = request.args.get('scope')
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
     business_unit = request.args.get('business_unit')
 
     filtered_emissions = emissions
 
+    if scope and scope != 'All Scopes':
+        filtered_emissions = [
+            e for e in filtered_emissions if e['scope'] == scope]
+
     if start_date:
-        filtered_emissions = [e for e in filtered_emissions if e['date'] >= start_date]
+        filtered_emissions = [
+            e for e in filtered_emissions if e['date'] >= start_date]
 
     if end_date:
-        filtered_emissions = [e for e in filtered_emissions if e['date'] <= end_date]
+        filtered_emissions = [
+            e for e in filtered_emissions if e['date'] <= end_date]
 
     if business_unit and business_unit != 'All Units':
-        filtered_emissions = [e for e in filtered_emissions if e['business_unit'] == business_unit]
+        filtered_emissions = [
+            e for e in filtered_emissions if e['business_unit'] == business_unit]
+
+    print(f"here with -> {emissions}")
 
     return jsonify(filtered_emissions)
 
@@ -83,6 +81,20 @@ def add_emission():
 
     data['id'] = str(uuid.uuid4())
     data['created_at'] = datetime.now().isoformat()
+
+    activity_type = data.get('activity_type')
+    quantity = float(data.get('quantity', 0))
+
+    emission_factors = {
+        'electricity': 0.5,  # kg CO2e per kWh
+        'natural_gas': 2.1,  # kg CO2e per m3
+        'vehicle_fleet': 2.3,  # kg CO2e per liter of fuel
+        'purchased_goods': 1.0,  # generic factor per kg
+    }
+
+    factor = emission_factors.get(activity_type, 1.0)
+    data['co2e'] = round(quantity * factor, 2)
+    data['co2e_unit'] = 'kgCO₂e'
 
     emissions.append(data)
     save_emissions_data(emissions)
@@ -105,6 +117,25 @@ def update_emission(emission_id):
 
     for i, emission in enumerate(emissions):
         if emission['id'] == emission_id:
+            # Recalculate CO2e if quantity or activity type changed
+            if 'quantity' in data or 'activity_type' in data:
+                activity_type = data.get(
+                    'activity_type', emission.get('activity_type'))
+                quantity = float(
+                    data.get('quantity', emission.get('quantity', 0)))
+
+                # Sample emission factors (same as in POST route)
+                emission_factors = {
+                    'electricity': 0.5,
+                    'natural_gas': 2.1,
+                    'vehicle_fleet': 2.3,
+                    'purchased_goods': 1.0,
+                }
+
+                factor = emission_factors.get(activity_type, 1.0)
+                data['co2e'] = round(quantity * factor, 2)
+
+            # Update the emission with new data
             emissions[i].update(data)
             emissions[i]['updated_at'] = datetime.now().isoformat()
             save_emissions_data(emissions)
@@ -136,13 +167,24 @@ def upload_csv():
             else:  # Excel files
                 df = pd.read_excel(filepath)
 
+            # Clean the data
             df = clean_emissions_data(df)
+
+            # Convert to list of dicts and add to existing data
             new_emissions = df.to_dict('records')
             emissions = load_emissions_data()
 
+            # Add IDs and timestamps to new records
             for emission in new_emissions:
                 emission['id'] = str(uuid.uuid4())
                 emission['created_at'] = datetime.now().isoformat()
+
+                # Ensure all numeric fields are properly formatted
+                if 'quantity' in emission:
+                    emission['quantity'] = float(emission.get('quantity', 0))
+                if 'co2e' in emission:
+                    emission['co2e'] = float(emission.get('co2e', 0))
+
                 emissions.append(emission)
 
             save_emissions_data(emissions)
@@ -156,6 +198,7 @@ def upload_csv():
         except Exception as e:
             return jsonify({'error': str(e)}), 500
         finally:
+            # Clean up the uploaded file
             if os.path.exists(filepath):
                 os.remove(filepath)
 
@@ -163,35 +206,69 @@ def upload_csv():
 
 
 def clean_emissions_data(df):
+    # Remove rows with all NaN values
     df = df.dropna(how='all')
+
+    # Rename columns to match our schema if needed
     column_mapping = {
         'Activity Type': 'activity_type',
         'Business Unit': 'business_unit',
         'Date': 'date',
+        'Scope': 'scope',
         'Quantity': 'quantity',
         'Unit': 'unit',
-        'Source': 'source',
-        'Fuel Type': 'fuel_type',
-        'Electricity Source': 'electricity_source'
+        'Source': 'source'
     }
-    df = df.rename(columns={col: column_mapping.get(col, col) for col in df.columns})
 
-    required_cols = ['activity_type', 'date']
+    df = df.rename(columns={col: column_mapping.get(col, col)
+                   for col in df.columns})
+
+    # Ensure required columns exist
+    required_cols = ['activity_type', 'date', 'scope']
     for col in required_cols:
         if col not in df.columns:
             df[col] = None
 
+    # Convert date strings to ISO format
     if 'date' in df.columns:
-        df['date'] = pd.to_datetime(df['date'], errors='coerce').dt.strftime('%Y-%m-%d')
+        df['date'] = pd.to_datetime(
+            df['date'], errors='coerce').dt.strftime('%Y-%m-%d')
 
+    # Fill missing values with defaults
+    df['scope'] = df['scope'].fillna('Scope 3')
     df['business_unit'] = df['business_unit'].fillna('Not Specified')
     df['source'] = df['source'].fillna('Imported Data')
+
+    # Calculate CO2e if not provided
+    if 'co2e' not in df.columns and 'quantity' in df.columns:
+        # Sample emission factors (as used elsewhere)
+        emission_factors = {
+            'electricity': 0.5,
+            'natural_gas': 2.1,
+            'vehicle_fleet': 2.3,
+            'purchased_goods': 1.0,
+        }
+
+        def calculate_co2e(row):
+            factor = emission_factors.get(row.get('activity_type', ''), 1.0)
+            try:
+                quantity = float(row.get('quantity', 0))
+                return round(quantity * factor, 2)
+            except (ValueError, TypeError):
+                return 0
+
+        df['co2e'] = df.apply(calculate_co2e, axis=1)
+        df['co2e_unit'] = 'kgCO₂e'
 
     return df
 
 
 @app.route('/api/dashboard/summary', methods=['GET'])
 def get_dashboard_summary():
+    # Get query parameters
+    scope_filter = request.args.get('scope')
+    business_unit_filter = request.args.get('business_unit')
+
     emissions = load_emissions_data()
     if not emissions:
         return jsonify({
@@ -202,73 +279,64 @@ def get_dashboard_summary():
             'business_unit_trend': {}
         })
 
-    scope_filter = request.args.get('scope')
-    business_unit_filter = request.args.get('business_unit')
+    # Filter emissions by scope
+    if scope_filter:
+        scope_filter = scope_filter.replace(' ', '')
+        scope_filter = f"{scope_filter[:5]} {scope_filter[5:]}"
+        emissions = [e for e in emissions if e.get('scope') == scope_filter]
 
-    filtered_emissions = emissions
-
+    # Filter emissions by business unit
     if business_unit_filter:
-        filtered_emissions = [e for e in filtered_emissions if e.get('business_unit') == business_unit_filter]
+        business_unit_filter = business_unit_filter.replace('+', ' ')
+        emissions = [e for e in emissions if e.get(
+            'business_unit') == business_unit_filter]
 
-    emission_factors = load_emission_factors()
-    total_emissions = 0
+    # Calculate total emissions
+    total_emissions = sum(e.get('co2e', 0) for e in emissions)
+
+    # Group by scope
     emissions_by_scope = {'Scope 1': 0, 'Scope 2': 0, 'Scope 3': 0}
+    for e in emissions:
+        scope = e.get('scope', 'Scope 3')
+        emissions_by_scope[scope] = emissions_by_scope.get(
+            scope, 0) + e.get('co2e', 0)
+
+    # Group by business unit
     emissions_by_business_unit = {}
+    for e in emissions:
+        business_unit = e.get('business_unit', 'Unknown')
+        emissions_by_business_unit[business_unit] = emissions_by_business_unit.get(
+            business_unit, 0) + e.get('co2e', 0)
+
+    # Group by month for trend analysis
     emissions_by_month = {}
     business_unit_emissions_by_month = {}
-
-    for e in filtered_emissions:
-        quantity = float(e.get('quantity', 0))
-        unit = e.get('unit', 'unknown').lower()
-        activity_type = e.get('activity_type', '').lower()
-        fuel_type = e.get('fuel_type', '').strip().title()
-        electricity_source = e.get('electricity_source', '').strip().title()
-        
-        # Determine emission factor
-        if fuel_type:
-            factor = emission_factors.get(fuel_type, 1.0)
-        elif electricity_source:
-            factor = emission_factors.get(electricity_source, 1.0)
-        else:
-            factor = emission_factors.get(activity_type, 1.0)
-
-        if unit in ['liters', 'm3', 'kg', 'kwh', 'ton-km']:
-            emission = quantity * factor
-        else:
-            emission = 0
-
-        # Categorize by scope
-        if activity_type in ['vehicle_fleet', 'natural_gas', 'stationary_combustion', 'heating'] or fuel_type:
-            scope = 'Scope 1'
-        elif activity_type == 'electricity' or electricity_source:
-            scope = 'Scope 2'
-        else:
-            scope = 'Scope 3'
-
-        if scope_filter and scope != scope_filter:
-            continue
-
-        emissions_by_scope[scope] += emission
-        total_emissions += emission
-
-        # Business unit categorization
-        business_unit = e.get('business_unit', 'Unknown')
-        emissions_by_business_unit[business_unit] = emissions_by_business_unit.get(business_unit, 0) + emission
-
-        # Trend analysis
+    for e in emissions:
         if 'date' in e:
             try:
                 date = datetime.fromisoformat(e['date'].replace('Z', '+00:00'))
                 month_key = date.strftime('%Y-%m')
-                emissions_by_month[month_key] = emissions_by_month.get(month_key, 0) + emission
+                business_unit = e.get('business_unit', 'Unknown')
 
+                # Overall trend
+                emissions_by_month[month_key] = emissions_by_month.get(
+                    month_key, 0) + e.get('co2e', 0)
+
+                # Business Unit-specific trend
                 if business_unit not in business_unit_emissions_by_month:
                     business_unit_emissions_by_month[business_unit] = {}
-                business_unit_emissions_by_month[business_unit][month_key] = business_unit_emissions_by_month[business_unit].get(month_key, 0) + emission
+                business_unit_emissions_by_month[business_unit][month_key] = business_unit_emissions_by_month[business_unit].get(
+                    month_key, 0) + e.get('co2e', 0)
             except (ValueError, AttributeError):
                 continue
 
-    emissions_trend = [{'month': k, 'emissions': v} for k, v in sorted(emissions_by_month.items())]
+    # Convert to sorted lists for frontend
+    emissions_trend = [
+        {'month': k, 'emissions': v}
+        for k, v in sorted(emissions_by_month.items())
+    ]
+
+    # Format business unit trends
     business_unit_trend = {
         business_unit: [
             {'month': k, 'emissions': v}
@@ -279,8 +347,8 @@ def get_dashboard_summary():
 
     return jsonify({
         'total_emissions': round(total_emissions, 2),
-        'emissions_by_scope': {k: round(v, 2) for k, v in emissions_by_scope.items()},
-        'emissions_by_business_unit': {k: round(v, 2) for k, v in emissions_by_business_unit.items()},
+        'emissions_by_scope': emissions_by_scope,
+        'emissions_by_business_unit': emissions_by_business_unit,
         'emissions_trend': emissions_trend,
         'business_unit_trend': business_unit_trend
     })
@@ -289,7 +357,8 @@ def get_dashboard_summary():
 @app.route('/api/business-units', methods=['GET'])
 def get_business_units():
     emissions = load_emissions_data()
-    business_units = set(e.get('business_unit', 'Not Specified') for e in emissions)
+    business_units = set(e.get('business_unit', 'Not Specified')
+                         for e in emissions)
     return jsonify(list(business_units))
 
 

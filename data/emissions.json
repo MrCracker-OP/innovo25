@@ -1,7 +1,8 @@
 [
   {
     "id": "550e8400-e29b-41d4-a716-446655440000",
-    "date": "2024-02-14",
+    "date": "2024-01-14",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1500,
@@ -29,7 +30,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440002",
-    "date": "2024-02-13",
+    "date": "2024-03-13",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2000,
@@ -43,7 +45,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440003",
-    "date": "2024-02-13",
+    "date": "2024-04-13",
+    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "purchased_goods",
     "quantity": 5000,
@@ -57,7 +60,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440004",
-    "date": "2024-01-15",
+    "date": "2024-05-15",
+    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 15000,
@@ -71,7 +75,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440005",
-    "date": "2024-02-15",
+    "date": "2024-06-15",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1800,
@@ -85,7 +90,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440006",
-    "date": "2024-02-15",
+    "date": "2024-07-15",
+    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 12000,
@@ -99,7 +105,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440007",
-    "date": "2024-02-16",
+    "date": "2024-08-16",
+    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "business_travel",
     "quantity": 3000,
@@ -113,7 +120,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440008",
-    "date": "2024-02-16",
+    "date": "2024-09-16",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "stationary_combustion",
     "quantity": 2500,
@@ -127,7 +135,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440009",
-    "date": "2024-02-17",
+    "date": "2024-10-17",
+    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 18000,
@@ -155,7 +164,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440011",
-    "date": "2024-02-18",
+    "date": "2024-03-18",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2200,
@@ -169,7 +179,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440012",
-    "date": "2024-02-18",
+    "date": "2024-04-18",
+    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 11000,
@@ -183,7 +194,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440013",
-    "date": "2024-02-19",
+    "date": "2024-05-19",
+    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "purchased_goods",
     "quantity": 7000,
@@ -197,7 +209,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440014",
-    "date": "2024-02-19",
+    "date": "2024-06-19",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "vehicle_fleet",
     "quantity": 1700,
@@ -211,7 +224,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440015",
-    "date": "2024-02-20",
+    "date": "2024-07-20",
+    "scope": "Scope 2",
     "business_unit": "Data Center",
     "activity_type": "electricity",
     "quantity": 16000,
@@ -225,7 +239,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440016",
-    "date": "2024-02-20",
+    "date": "2024-08-20",
+    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "business_travel",
     "quantity": 2500,
@@ -239,7 +254,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440017",
-    "date": "2024-02-21",
+    "date": "2024-09-21",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "stationary_combustion",
     "quantity": 2300,
@@ -253,7 +269,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440018",
-    "date": "2024-02-22",
+    "date": "2024-10-22",
+    "scope": "Scope 2",
     "business_unit": "Office Operations",
     "activity_type": "electricity",
     "quantity": 12500,
@@ -267,7 +284,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440019",
-    "date": "2024-02-22",
+    "date": "2024-11-22",
+    "scope": "Scope 3",
     "business_unit": "Supply Chain",
     "activity_type": "waste_generated",
     "quantity": 2200,
@@ -281,7 +299,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440020",
-    "date": "2024-02-23",
+    "date": "2024-12-23",
+    "scope": "Scope 1",
     "business_unit": "Manufacturing",
     "activity_type": "natural_gas",
     "quantity": 2100,
@@ -295,7 +314,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440021",
-    "date": "2024-02-23",
+    "date": "2024-01-23",
+    "scope": "Scope 1",
     "business_unit": "Office Operations",
     "activity_type": "heating",
     "quantity": 500,
@@ -337,7 +357,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440024",
-    "date": "2024-02-25",
+    "date": "2024-03-25",
+    "scope": "Scope 1",
     "business_unit": "Supply Chain",
     "activity_type": "company_owned_trucks",
     "quantity": 2200,
@@ -365,7 +386,8 @@
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440026",
-    "date": "2024-02-26",
+    "date": "2024-05-26",
+    "scope": "Scope 3",
     "business_unit": "Manufacturing",
     "activity_type": "purchased_goods",
     "quantity": 9000,
