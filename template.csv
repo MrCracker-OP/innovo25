@@ -1,0 +1,16 @@
+Date,Activity Type,Business Unit,Quantity,Units,Source
+2024-01-15,Natural Gas,Manufacturing,1000,therms,Utility Bills
+2024-02-15,Electricity,Office Campus,50000,kWh,Energy Meter
+2024-03-16,Vehicle Fleet,Distribution,500,gallons,Fleet Management
+2024-04-17,Purchased Goods,Procurement,2500,kg,Purchase Orders
+2024-05-18,Refrigerants,Manufacturing,50,kg,Maintenance Logs
+2024-05-19,Steam,Office Campus,1200,MMBtu,Utility Bills
+2024-04-20,Business Travel,Sales,5000,miles,Travel System
+2024-03-21,Employee Commuting,All Departments,25000,miles,HR Survey
+2024-02-22,Waste Disposal,Manufacturing,750,kg,Waste Management
+2024-01-23,Electricity,Data Center,75000,kWh,Smart Meters
+2024-01-01,Process Emissions,Manufacturing,1500,kg,Production Data
+2024-02-02,Stationary Combustion,Office Campus,800,therms,Boiler Readings
+2024-03-03,Mobile Combustion,Construction,1200,gallons,Equipment Logs
+2024-04-04,Cooling,Data Center,3000,ton-hours,HVAC System
+2024-05-05,Propane,Manufacturing,400,gallons,Gas Supplier
